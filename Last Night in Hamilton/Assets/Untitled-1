@@ -1,0 +1,54 @@
+using System;
+
+namespace InputValidation
+{
+   class Battleship
+   {
+       static void Main(string[] args)
+       {
+           char[] letters = new char[] { 'A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 'G', 'g', 'H', 'h', 'I', 'i', 'J', 'j' };
+           int[] numbers = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+           bool isLetter = false;
+           bool isNumber = false;
+
+           char letter;
+           int number = 0;
+
+           while (true)
+           {
+               var letterAsString = Console.ReadLine();
+               var numberAsString = Console.ReadLine();
+               bool success = char.TryParse(letterAsString, out letter) && int.TryParse(numberAsString, out number);
+
+               
+               if (success)
+               {
+                   for (int i = 0; i < letters.Length; i++)
+                   {
+                       if (letter == letters[i])
+                           isLetter = true;
+                   }
+
+                   for (int j = 0; j < numbers.Length; j++)
+                   {
+                       if (number == numbers[j])
+                           isNumber = true;
+                   }
+
+                   if (isLetter && isNumber)
+                   {
+                       Console.WriteLine($"Next move is {letter}{number}.");
+                       isNumber = false;
+                       isLetter = false;
+                       return;
+                   }
+                   else
+                       Console.WriteLine("Letter should be from A to J. Number from 1 to 10. Try again!");
+               }
+               else
+                   Console.WriteLine("Letter should be from A to J. Number from 1 to 10. Try again!");
+           }
+       }
+   }
+}
